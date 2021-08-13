@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gofiber/fiber"
 	"learning_go/book"
+	"learning_go/database"
 )
 
 func configureRoutes(app *fiber.App) {
@@ -15,6 +16,7 @@ func configureRoutes(app *fiber.App) {
 func main() {
 	app := fiber.New()
 
+	database.InitDatabase()
 	configureRoutes(app)
 
 	app.Listen(":3000")
