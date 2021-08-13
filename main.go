@@ -1,9 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gofiber/fiber"
 	"learning_go/book"
 	"learning_go/database"
+	"log"
 )
 
 func configureRoutes(app *fiber.App) {
@@ -16,8 +18,10 @@ func configureRoutes(app *fiber.App) {
 func main() {
 	app := fiber.New()
 
-	database.InitDatabase()
+	conn := database.InitDatabase()
+	conn.AutoMigrate(&book.Book{})
+	fmt.Println("Database migrated using &book.Book 📕")
 	configureRoutes(app)
 
-	app.Listen(":3000")
+	log.Fatal(app.Listen(":3000"))
 }
